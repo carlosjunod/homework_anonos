@@ -3,7 +3,7 @@ import React from 'react';
 const App = () => {
   return (
     <div>
-      <h3>New Component</h3>
+      <input type="text" />
     </div>
   );
 };
