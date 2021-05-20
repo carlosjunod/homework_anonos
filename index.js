@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import App from './src/App';
 import './normalize.css';
 import 'milligram/dist/milligram.css';
-import MenuContextContainer from './src/Contexts/MenuContextContainer';
+import { MenuProvider } from './src/Contexts/menuContext';
 
 ReactDOM.render(
-  <MenuContextContainer>
+  <MenuProvider>
     <App />
-  </MenuContextContainer>,
+  </MenuProvider>,
   document.getElementById('app')
 );

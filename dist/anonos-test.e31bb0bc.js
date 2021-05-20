@@ -29566,7 +29566,128 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/Constants/menuActions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SET_DISPLAY = exports.SET_TERM = exports.SET_OPTIONS = void 0;
+var SET_OPTIONS = 'SET_OPTIONS';
+exports.SET_OPTIONS = SET_OPTIONS;
+var SET_TERM = 'SET_TERM';
+exports.SET_TERM = SET_TERM;
+var SET_DISPLAY = 'SET_DISPLAY';
+exports.SET_DISPLAY = SET_DISPLAY;
+},{}],"src/Contexts/menuContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MenuProvider = MenuProvider;
+exports.useMenuContext = useMenuContext;
+exports.MenuContext = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var CONSTANTS = _interopRequireWildcard(require("../Constants/menuActions"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var menuContextDefault = {
+  options: [],
+  term: '',
+  display: []
+};
+var MenuContext = (0, _react.createContext)();
+exports.MenuContext = MenuContext;
+
+function menuReducer(state, action) {
+  switch (action.type) {
+    case CONSTANTS.SET_OPTIONS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        options: action.payload
+      });
+
+    case CONSTANTS.SET_TERM:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        term: action.payload
+      });
+
+    case CONSTANTS.SET_DISPLAY:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        display: action.payload
+      });
+
+    default:
+      {
+        throw new Error("action ".concat(action.type, " is not avialable"));
+      }
+  }
+}
+
+function MenuProvider(props) {
+  var _useReducer = (0, _react.useReducer)(menuReducer, menuContextDefault),
+      _useReducer2 = _slicedToArray(_useReducer, 2),
+      state = _useReducer2[0],
+      dispatch = _useReducer2[1];
+
+  var value = (0, _react.useMemo)(function () {
+    return [state, dispatch];
+  }, [state]);
+  return /*#__PURE__*/_react.default.createElement(MenuContext.Provider, _extends({
+    value: value
+  }, props));
+}
+
+function useMenuContext() {
+  var context = (0, _react.useContext)(MenuContext);
+
+  if (!context) {
+    throw new Error("useMenuContext cannot be used outside of menuContext");
+  }
+
+  var _context = _slicedToArray(context, 2),
+      state = _context[0],
+      dispatch = _context[1];
+
+  var setTerm = function setTerm(term) {
+    return dispatch({
+      type: CONSTANTS.SET_TERM,
+      payload: term
+    });
+  };
+
+  return {
+    state: state,
+    dispatch: dispatch,
+    setTerm: setTerm
+  };
+}
+},{"react":"node_modules/react/index.js","../Constants/menuActions":"src/Constants/menuActions.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29576,17 +29697,28 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _menuContext = require("./Contexts/menuContext");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
-    type: "text"
+  var _useMenuContext = (0, _menuContext.useMenuContext)(),
+      state = _useMenuContext.state,
+      setTerm = _useMenuContext.setTerm;
+
+  console.log('STATE:::', state);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, state.term), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    value: state.term,
+    onChange: function onChange(e) {
+      return setTerm(e.target.value);
+    }
   }));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Contexts/menuContext":"src/Contexts/menuContext.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -29664,221 +29796,7 @@ module.hot.accept(reloadCSS);
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/Constants/menuActions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SET_DISPLAY = exports.SET_TERM = exports.SET_OPTIONS = void 0;
-var SET_OPTIONS = 'SET_OPTIONS';
-exports.SET_OPTIONS = SET_OPTIONS;
-var SET_TERM = 'SET_TERM';
-exports.SET_TERM = SET_TERM;
-var SET_DISPLAY = 'SET_DISPLAY';
-exports.SET_DISPLAY = SET_DISPLAY;
-},{}],"src/Contexts/menuContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MenuProvider = MenuProvider;
-exports.MenuContext = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var CONSTANTS = _interopRequireWildcard(require("../Constants/menuActions"));
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var menuContext = {
-  options: [],
-  term: '',
-  display: []
-};
-
-function menuReducer(state, action) {
-  switch (action.type) {
-    case CONSTANTS.SET_OPTIONS:
-      {
-        return _objectSpread(_objectSpread({}, state), {}, {
-          options: action.payload
-        });
-      }
-
-    case CONSTANTS.SET_TERM:
-      {
-        return _objectSpread(_objectSpread({}, state), {}, {
-          term: action.payload
-        });
-      }
-
-    case CONSTANTS.SET_DISPLAY:
-      {
-        return _objectSpread(_objectSpread({}, state), {}, {
-          display: action.payload
-        });
-      }
-
-    default:
-      {
-        throw new Error("action ".concat(action.type, " is not avialable"));
-      }
-  }
-}
-
-var MenuContext = (0, _react.createContext)(menuContext);
-exports.MenuContext = MenuContext;
-
-function MenuProvider(props) {
-  var _useReducer = (0, _react.useReducer)(menuReducer, menuContext),
-      _useReducer2 = _slicedToArray(_useReducer, 2),
-      state = _useReducer2[0],
-      dispatch = _useReducer2[1];
-
-  var value = (0, _react.useMemo)(function () {
-    return [state, dispatch];
-  }, [state]);
-  return /*#__PURE__*/_react.default.createElement(MenuContext.Provider, _extends({
-    value: value
-  }, props));
-}
-},{"react":"node_modules/react/index.js","../Constants/menuActions":"src/Constants/menuActions.js"}],"src/MockData/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var data = [{
-  title: 'Getting started',
-  url: 'getting-started',
-  children: [{
-    title: 'First',
-    url: 'getting-started/first'
-  }, {
-    title: 'Installation',
-    url: 'getting-started/installation'
-  }, {
-    title: 'Site preparation',
-    url: 'getting-started/site-preparation'
-  }, {
-    title: 'Creating your site',
-    url: 'getting-started/creating-your-site'
-  }, {
-    title: 'Publishing your site',
-    url: 'getting-started/publishing-your-site'
-  }]
-}, {
-  title: 'Guides',
-  url: 'guides',
-  children: [{
-    title: 'Adding a Blog',
-    url: 'guides/adding-a-blog'
-  }, {
-    title: 'Custom Pages',
-    url: 'guides/custom-pages',
-    children: [{
-      title: 'First',
-      url: 'guides/custom-pages/first'
-    }]
-  }, {
-    title: 'Enabling Search',
-    url: 'guides/enabling-search'
-  }, {
-    title: 'Navigation and Sidebars',
-    url: 'guides/navigation-and-sidebars'
-  }, {
-    title: 'Translations & Localization',
-    url: 'guides/trans-and-nav'
-  }, {
-    title: 'Versioning',
-    url: 'guides/versioning'
-  }]
-}, {
-  title: 'API',
-  url: 'api',
-  children: [{
-    title: 'CLI Commands',
-    url: 'api/cli-commands'
-  }, {
-    title: 'Arguments',
-    url: 'cli/args',
-    children: [{
-      title: 'port',
-      url: 'cli/args/port'
-    }, {
-      title: 'start',
-      url: 'cli/args/start'
-    }, {
-      title: 'stop',
-      url: 'cli/args/stop',
-      children: [{
-        title: 'First',
-        url: 'cli/args/stop/first'
-      }]
-    }]
-  }, {
-    title: 'Commands',
-    url: 'cli/cmds'
-  }]
-}];
-var _default = data;
-exports.default = _default;
-},{}],"src/Contexts/MenuContextContainer.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _menuContext = require("./menuContext");
-
-var _MockData = _interopRequireDefault(require("../MockData"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var MenuContextContainer = function MenuContextContainer(_ref) {
-  var children = _ref.children;
-  var menuMockData = {
-    options: _MockData.default,
-    term: '',
-    display: []
-  };
-  return /*#__PURE__*/_react.default.createElement(_menuContext.MenuProvider, {
-    value: menuMockData
-  }, children);
-};
-
-var _default = MenuContextContainer;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","./menuContext":"src/Contexts/menuContext.js","../MockData":"src/MockData/index.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29891,13 +29809,13 @@ require("./normalize.css");
 
 require("milligram/dist/milligram.css");
 
-var _MenuContextContainer = _interopRequireDefault(require("./src/Contexts/MenuContextContainer"));
+var _menuContext = require("./src/Contexts/menuContext");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // index.js
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_MenuContextContainer.default, null, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./src/App":"src/App.js","./normalize.css":"normalize.css","milligram/dist/milligram.css":"node_modules/milligram/dist/milligram.css","./src/Contexts/MenuContextContainer":"src/Contexts/MenuContextContainer.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_menuContext.MenuProvider, null, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById('app'));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./src/App":"src/App.js","./normalize.css":"normalize.css","milligram/dist/milligram.css":"node_modules/milligram/dist/milligram.css","./src/Contexts/menuContext":"src/Contexts/menuContext.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -29925,7 +29843,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65374" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54886" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
