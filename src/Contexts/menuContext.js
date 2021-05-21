@@ -1,9 +1,11 @@
 import React, { createContext, useReducer, useMemo, useContext } from 'react';
-import * as CONSTANTS from '../Constants/menuActions';
+import * as CONSTANTS from '../constants/menuActions';
+import data from '../mockData';
+import * as UTILS from '../Utils';
 
-const menuContextDefault = { options: [], term: '', display: [] };
+const menuContextDefault = { options: data, term: '', filtered: [] };
 
-export const MenuContext = createContext();
+export const MenuContext = createContext([]);
 
 function menuReducer(state, action) {
   switch (action.type) {
@@ -12,7 +14,7 @@ function menuReducer(state, action) {
     case CONSTANTS.SET_TERM:
       return { ...state, term: action.payload };
     case CONSTANTS.SET_DISPLAY:
-      return { ...state, display: action.payload };
+      return { ...state, filtered: action.payload };
     default: {
       throw new Error(`action ${action.type} is not avialable`);
     }
@@ -31,7 +33,12 @@ export function useMenuContext() {
     throw new Error(`useMenuContext cannot be used outside of menuContext`);
   }
   const [state, dispatch] = context;
-  const setTerm = (term) => dispatch({ type: CONSTANTS.SET_TERM, payload: term });
+  const setTerm = (term) => {
+    const options = [...state.options];
+    const filteredOptions = term ? UTILS.filterOptions(options, term) : options;
+    dispatch({ type: CONSTANTS.SET_DISPLAY, payload: filteredOptions });
+    dispatch({ type: CONSTANTS.SET_TERM, payload: term.toLowerCase() });
+  };
 
   return {
     state,
