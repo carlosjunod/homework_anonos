@@ -29683,8 +29683,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function filterOptions(options, term) {
   var filtered = options.reduce(function (acc, el) {
-    console.log('reduce acc', acc, term); // return el;
-
     if (el.title.toLowerCase().indexOf(term) > -1) {
       acc.push({
         title: el.title,
@@ -29820,7 +29818,7 @@ function useMenuContext() {
   var setTerm = function setTerm(term) {
     var options = _toConsumableArray(state.options);
 
-    var filteredOptions = term ? UTILS.filterOptions(options, term) : options;
+    var filteredOptions = term && term.length > 1 ? UTILS.filterOptions(options, term) : options;
     dispatch({
       type: CONSTANTS.SET_DISPLAY,
       payload: filteredOptions
@@ -32181,10 +32179,12 @@ var Menu = function Menu(_ref) {
       isEmpty = _ref$isEmpty === void 0 ? false : _ref$isEmpty;
   if (isEmpty) return /*#__PURE__*/_react.default.createElement(_NoResults.default, null);
   return /*#__PURE__*/_react.default.createElement("ul", null, options.map(function (op) {
+    var _op$children;
+
     return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Option.default, {
       text: op.title,
       url: op.url
-    }), op.children && op.children.length > 0 && /*#__PURE__*/_react.default.createElement(Menu, {
+    }), (op === null || op === void 0 ? void 0 : (_op$children = op.children) === null || _op$children === void 0 ? void 0 : _op$children.length) > 0 && /*#__PURE__*/_react.default.createElement(Menu, {
       options: op.children
     }));
   }));
@@ -32355,7 +32355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54886" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61046" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

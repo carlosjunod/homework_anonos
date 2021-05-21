@@ -35,7 +35,7 @@ export function useMenuContext() {
   const [state, dispatch] = context;
   const setTerm = (term) => {
     const options = [...state.options];
-    const filteredOptions = term ? UTILS.filterOptions(options, term) : options;
+    const filteredOptions = term && term.length > 1 ? UTILS.filterOptions(options, term) : options;
     dispatch({ type: CONSTANTS.SET_DISPLAY, payload: filteredOptions });
     dispatch({ type: CONSTANTS.SET_TERM, payload: term.toLowerCase() });
   };

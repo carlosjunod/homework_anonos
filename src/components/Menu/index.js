@@ -13,7 +13,7 @@ const Menu = ({ options, isEmpty = false }) => {
         return (
           <>
             <Option text={op.title} url={op.url} />
-            {op.children && op.children.length > 0 && <Menu options={op.children} />}
+            {op?.children?.length > 0 && <Menu options={op.children} />}
           </>
         );
       })}

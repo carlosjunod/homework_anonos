@@ -1,8 +1,5 @@
 export function filterOptions(options, term) {
   const filtered = options.reduce((acc, el) => {
-    console.log('reduce acc', acc, term);
-    // return el;
-
     if (el.title.toLowerCase().indexOf(term) > -1) {
       acc.push({ title: el.title, url: el.url });
     }
