@@ -15,3 +15,10 @@ export function filterOptions(options, term) {
   }, []);
   return filtered;
 }
+
+export function handleFetchErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}

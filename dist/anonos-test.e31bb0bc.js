@@ -29572,13 +29572,15 @@ if ("development" === 'production') {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SET_DISPLAY = exports.SET_TERM = exports.SET_OPTIONS = void 0;
+exports.SET_MENU_LOADING = exports.SET_DISPLAY = exports.SET_TERM = exports.SET_OPTIONS = void 0;
 const SET_OPTIONS = 'SET_OPTIONS';
 exports.SET_OPTIONS = SET_OPTIONS;
 const SET_TERM = 'SET_TERM';
 exports.SET_TERM = SET_TERM;
 const SET_DISPLAY = 'SET_DISPLAY';
 exports.SET_DISPLAY = SET_DISPLAY;
+const SET_MENU_LOADING = 'SET_MENU_LOADING';
+exports.SET_MENU_LOADING = SET_MENU_LOADING;
 },{}],"src/Utils/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -29586,6 +29588,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.filterOptions = filterOptions;
+exports.handleFetchErrors = handleFetchErrors;
 
 function filterOptions(options, term) {
   const filtered = options.reduce((acc, el) => {
@@ -29612,6 +29615,14 @@ function filterOptions(options, term) {
   }, []);
   return filtered;
 }
+
+function handleFetchErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+
+  return response;
+}
 },{}],"src/contexts/menuContext.js":[function(require,module,exports) {
 "use strict";
 
@@ -29637,7 +29648,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 const menuContextDefault = {
   options: [],
   term: '',
-  filtered: []
+  filtered: [],
+  isMenuLoading: true
 };
 const MenuContext = (0, _react.createContext)([]);
 exports.MenuContext = MenuContext;
@@ -29657,6 +29669,11 @@ function menuReducer(state, action) {
     case CONSTANTS.SET_DISPLAY:
       return { ...state,
         filtered: action.payload
+      };
+
+    case CONSTANTS.SET_MENU_LOADING:
+      return { ...state,
+        isMenuLoading: action.payload
       };
 
     default:
@@ -29697,9 +29714,16 @@ function useMenuContext() {
   };
 
   const fetchMenu = async () => {
+    dispatch({
+      type: CONSTANTS.SET_MENU_LOADING,
+      payload: true
+    });
     await fetch(`${"http://localhost:3001"}/menu`).then(response => response.json()).then(data => dispatch({
       type: CONSTANTS.SET_OPTIONS,
       payload: data
+    })).catch(UTILS.handleFetchErrors).finally(() => dispatch({
+      type: CONSTANTS.SET_MENU_LOADING,
+      payload: false
     }));
   };
 
@@ -31991,8 +32015,6 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _NoResults = _interopRequireDefault(require("../../components/NoResults"));
 
-var _menuContext = require("../../contexts/menuContext");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -32024,7 +32046,7 @@ const Menu = ({
 
 var _default = Menu;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../Option":"src/components/Option/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../components/NoResults":"src/components/NoResults/index.js","../../contexts/menuContext":"src/contexts/menuContext.js"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Option":"src/components/Option/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../components/NoResults":"src/components/NoResults/index.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32049,7 +32071,8 @@ const App = () => {
     state: {
       term,
       options,
-      filtered
+      filtered,
+      isMenuLoading
     },
     setTerm,
     fetchMenu
@@ -32068,7 +32091,7 @@ const App = () => {
     value: term,
     onChange: e => setTerm(e.target.value),
     "data-testid": "INPUT_FILTER"
-  }), /*#__PURE__*/_react.default.createElement(_Menu.default, {
+  }), isMenuLoading && /*#__PURE__*/_react.default.createElement("div", null, "loading"), /*#__PURE__*/_react.default.createElement(_Menu.default, {
     options: filtered.length !== 0 ? filtered : options,
     isEmpty: filtered.length === 0 && term !== ''
   }));
@@ -32201,7 +32224,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58081" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64544" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

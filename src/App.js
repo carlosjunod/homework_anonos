@@ -4,7 +4,7 @@ import Menu from './components/Menu';
 
 const App = () => {
   const {
-    state: { term, options, filtered },
+    state: { term, options, filtered, isMenuLoading },
     setTerm,
     fetchMenu,
   } = useMenuContext();
@@ -26,6 +26,7 @@ const App = () => {
         onChange={(e) => setTerm(e.target.value)}
         data-testid="INPUT_FILTER"
       />
+      {isMenuLoading && <div>loading</div>}
       <Menu
         options={filtered.length !== 0 ? filtered : options}
         isEmpty={filtered.length === 0 && term !== ''}

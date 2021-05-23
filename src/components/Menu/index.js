@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Option from '../Option';
 import styled from 'styled-components';
 import NoResults from '../../components/NoResults';
-import { useMenuContext } from '../../contexts/menuContext';
 
 const StyledMenu = styled.ul``;
 

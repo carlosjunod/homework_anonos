@@ -1,9 +1,10 @@
 import React, { createContext, useReducer, useMemo, useContext } from 'react';
 import * as CONSTANTS from '../constants/menuActions';
+import { handleFetchErrors } from '../Utils';
 
 import * as UTILS from '../Utils';
 
-const menuContextDefault = { options: [], term: '', filtered: [] };
+const menuContextDefault = { options: [], term: '', filtered: [], isMenuLoading: true };
 
 export const MenuContext = createContext([]);
 
@@ -15,6 +16,8 @@ function menuReducer(state, action) {
       return { ...state, term: action.payload };
     case CONSTANTS.SET_DISPLAY:
       return { ...state, filtered: action.payload };
+    case CONSTANTS.SET_MENU_LOADING:
+      return { ...state, isMenuLoading: action.payload };
     default: {
       throw new Error(`action ${action.type} is not avialable`);
     }
@@ -41,9 +44,13 @@ export function useMenuContext() {
   };
 
   const fetchMenu = async () => {
+    dispatch({ type: CONSTANTS.SET_MENU_LOADING, payload: true });
+
     await fetch(`${process.env.API_URL}/menu`)
       .then((response) => response.json())
-      .then((data) => dispatch({ type: CONSTANTS.SET_OPTIONS, payload: data }));
+      .then((data) => dispatch({ type: CONSTANTS.SET_OPTIONS, payload: data }))
+      .catch(handleFetchErrors)
+      .finally(() => dispatch({ type: CONSTANTS.SET_MENU_LOADING, payload: false }));
   };
 
   return {
