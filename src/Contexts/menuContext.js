@@ -1,9 +1,9 @@
 import React, { createContext, useReducer, useMemo, useContext } from 'react';
 import * as CONSTANTS from '../constants/menuActions';
-import data from '../mockData';
+
 import * as UTILS from '../Utils';
 
-const menuContextDefault = { options: data, term: '', filtered: [] };
+const menuContextDefault = { options: [], term: '', filtered: [] };
 
 export const MenuContext = createContext([]);
 
@@ -40,9 +40,16 @@ export function useMenuContext() {
     dispatch({ type: CONSTANTS.SET_TERM, payload: term.toLowerCase() });
   };
 
+  const fetchMenu = async () => {
+    await fetch(`${process.env.API_URL}/menu`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: CONSTANTS.SET_OPTIONS, payload: data }));
+  };
+
   return {
     state,
     dispatch,
     setTerm,
+    fetchMenu,
   };
 }

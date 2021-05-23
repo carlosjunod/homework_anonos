@@ -1,7 +1,20 @@
 {
-    "extends": ["airbnb", "prettier"],
-    "plugins": ["prettier"],
-    "rules": {
-      "prettier/prettier": ["error"]
-    }
-  }
+  "settings": {
+    "import/resolver": "parcel"
+  },
+  "plugins": ["cypress","prettier"],
+  "rules": {
+    "prettier/prettier": ["error"]
+  },
+  "env": {
+    "cypress/globals": true,
+    "browser": true,
+    "jest": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:cypress/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ]
+}
