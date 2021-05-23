@@ -33,10 +33,10 @@
     "styled-components": "^5.3.0"
   },
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel index.html --open",
     "build": "parcel build index.html",
     "test": "cypress open",
-    "json-server": "npx json-server --delay 2000 --port 3001 'mockServer/db.json' ",
+    "json-server": "npx json-server --port 3001 'mockServer/db.json' ",
     "dev": "concurrently \"npm start\" \"npm run json-server\""
   },
   "browserslist": [

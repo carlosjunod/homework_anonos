@@ -10,7 +10,6 @@ const App = () => {
   } = useMenuContext();
 
   useEffect(() => {
-    console.log('CALLING API');
     const fetchData = async () => {
       await fetchMenu();
     };
