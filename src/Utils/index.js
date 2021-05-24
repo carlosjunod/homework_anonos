@@ -22,3 +22,16 @@ export function handleFetchErrors(response) {
   }
   return response;
 }
+
+//theme locals storage
+export const setThemeLocal = (key, value) => {
+  window.localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const getThemeLocal = (key) => {
+  const value = window.localStorage.getItem(key);
+
+  // if (value) {
+  //   return JSON.parse(value);
+  // }
+};

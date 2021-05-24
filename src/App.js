@@ -1,6 +1,23 @@
 import React, { useEffect } from 'react';
 import { useMenuContext } from './contexts/menuContext';
 import Menu from './components/Menu';
+import styled from 'styled-components';
+
+const MenuContainer = styled.div`
+  padding: ${({ theme }) => theme.space.padding};
+  background: ${({ theme }) => theme.colors.light};
+`;
+
+const Input = styled.input`
+  border-radius: ${({ theme }) => theme.radius.all};
+  border: ${({ theme }) => theme.border.all};
+  padding: ${({ theme }) => theme.input.padding};
+  box-shadow: ${({ theme }) => theme.shadow[100]};
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadow[200]};
+  }
+`;
 
 const App = () => {
   const {
@@ -17,9 +34,8 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>{term}</h1>
-      <input
+    <MenuContainer>
+      <Input
         type="text"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
@@ -30,7 +46,7 @@ const App = () => {
         options={filtered.length !== 0 ? filtered : options}
         isEmpty={filtered.length === 0 && term !== ''}
       />
-    </div>
+    </MenuContainer>
   );
 };
 

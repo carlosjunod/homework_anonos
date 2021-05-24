@@ -1,0 +1,105 @@
+{
+  "data": {
+    "light": {
+      "id": "T_001",
+      "name": "Light",
+      "colors": {
+        "body": "#FFFFFF",
+        "text": "#000000",
+        "primary": "#000000",
+        "secodary": "#FFFFFF",
+        "light": "#FFFFFF",
+        "warning": "#000000",
+        "button": {
+          "text": "#FFFFFF",
+          "background": "#000000"
+        },
+        "link": {
+          "text": "red",
+          "opacity": 1
+        }
+      },
+      "space": {
+        "margin": "0px",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "padding": "0px"
+      },
+      "font": "serif",
+      "radius": {
+        "all": "0px",
+        "TopLeftRadius": "0px",
+        "TopRightRadius": "0px",
+        "BottomRightRadius": "0px",
+        "BottomLeftRadius": "0px"
+      },
+      "border": {
+        "all": "0px",
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "input": {
+        "padding": "5px"
+      },
+      "shadow": {
+        "100": "none",
+        "200": "none"
+      }
+    },
+    "anonos": {
+      "id": "T_007",
+      "name": "Anonos Theme",
+      "colors": {
+        "body": "#002e6d",
+        "text": "#002e6d",
+        "primary": "#0d47a1",
+        "secodary": "#002e6d",
+        "light": "#f3f6f8",
+        "warning": "#FDB913",
+        "button": {
+          "text": "#ffffff",
+          "background": "#0d47a1"
+        },
+        "background": "#002e6d",
+        "link": {
+          "text": "#2f80ed",
+          "opacity": 1
+        }
+      },
+      "space": {
+        "margin": "10px",
+        "marginTop": "1em",
+        "marginRight": "10px",
+        "marginBottom": "1em",
+        "marginLeft": "10px",
+        "padding": "20px"
+      },
+      "font": "sans-serif",
+      "radius": {
+        "all": "5px",
+        "TopLeftRadius": "0px",
+        "TopRightRadius": "0px",
+        "BottomRightRadius": "0px",
+        "BottomLeftRadius": "0px"
+      },
+      "border": {
+        "all": "none",
+        "topLeft": "none",
+        "topRight": "none",
+        "bottomRight": "none",
+        "bottomLeft": "none"
+      },
+      "input": {
+        "padding": "5px"
+      },
+      "shadow": {
+        "100": "0 4px 10px 0 rgb(0 0 0 / 15%)",
+        "200": "0 8px 20px 0 rgb(0 0 0 / 20%)"
+      }
+    }
+  }
+}
