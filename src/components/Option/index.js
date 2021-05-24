@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Option = ({ text, url }) => {
-  return (
-    <li>
-      <a href={url}>{text}</a>
-    </li>
-  );
+  return <a href={url}>{text}</a>;
 };
 
 export default Option;

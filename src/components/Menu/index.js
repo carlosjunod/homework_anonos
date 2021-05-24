@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Option from '../Option';
 import styled from 'styled-components';
 import NoResults from '../../components/NoResults';
 
 const StyledMenu = styled.ul``;
 
-const Menu = ({ options, isEmpty = false }) => {
+const Menu = ({ options, level = 0, isEmpty = false }) => {
   if (isEmpty) return <NoResults />;
+
   return (
-    <ul>
-      {options.map((op) => {
+    <ul data-testid={`LINK_MENU_${level}`}>
+      {options.map((op, i) => {
         return (
-          <>
+          <li>
             <Option text={op.title} url={op.url} />
-            {op?.children?.length > 0 && <Menu options={op.children} />}
-          </>
+            {op?.children?.length > 0 && <Menu options={op.children} level={i + 1} />}
+          </li>
         );
       })}
     </ul>
