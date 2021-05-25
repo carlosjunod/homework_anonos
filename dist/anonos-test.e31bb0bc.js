@@ -29633,9 +29633,11 @@ const setThemeLocal = (key, value) => {
 exports.setThemeLocal = setThemeLocal;
 
 const getThemeLocal = key => {
-  const value = window.localStorage.getItem(key); // if (value) {
-  //   return JSON.parse(value);
-  // }
+  const value = window.localStorage.getItem(key);
+
+  if (value) {
+    return JSON.parse(value);
+  }
 };
 
 exports.getThemeLocal = getThemeLocal;
@@ -32075,7 +32077,22 @@ const Menu = ({
 
 var _default = Menu;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../Option":"src/components/Option/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../components/NoResults":"src/components/NoResults/index.js"}],"src/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Option":"src/components/Option/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../components/NoResults":"src/components/NoResults/index.js"}],"src/assets/logo.svg":[function(require,module,exports) {
+module.exports = "/logo.f4bfa240.svg";
+},{}],"src/constants/styling.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.THEME_ANONOS = exports.THEME_NAKED = exports.LOCAL_THEMES = void 0;
+const LOCAL_THEMES = 'LOCAL_THEMES';
+exports.LOCAL_THEMES = LOCAL_THEMES;
+const THEME_NAKED = 'naked';
+exports.THEME_NAKED = THEME_NAKED;
+const THEME_ANONOS = 'anonos';
+exports.THEME_ANONOS = THEME_ANONOS;
+},{}],"src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32091,19 +32108,35 @@ var _Menu = _interopRequireDefault(require("./components/Menu"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _logo = _interopRequireDefault(require("./assets/logo.svg"));
+
+var STYLE_CONSTSANTS = _interopRequireWildcard(require("./constants/styling"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+// @ts-ignore
 const MenuContainer = _styledComponents.default.div`
+  margin-top: ${({
+  theme
+}) => theme.name === STYLE_CONSTSANTS.THEME_NAKED ? theme.space.xxl : theme.space.l};
   padding: ${({
   theme
-}) => theme.space.padding};
+}) => theme.space.l};
+  padding-top: ${({
+  theme
+}) => theme.space.xl};
   background: ${({
   theme
 }) => theme.colors.light};
+  border: ${({
+  theme
+}) => `${theme.border.all} solid ${theme.colors.primary}`};
+  align-self: flex-start;
+  position: relative;
 `;
 const Input = _styledComponents.default.input`
   border-radius: ${({
@@ -32111,7 +32144,7 @@ const Input = _styledComponents.default.input`
 }) => theme.radius.all};
   border: ${({
   theme
-}) => theme.border.all};
+}) => `${theme.border.all} solid ${theme.colors.primary}`};
   padding: ${({
   theme
 }) => theme.input.padding};
@@ -32124,6 +32157,34 @@ const Input = _styledComponents.default.input`
   theme
 }) => theme.shadow[200]};
   }
+`;
+const LogoImg = _styledComponents.default.img`
+  display: ${({
+  theme
+}) => theme.name === STYLE_CONSTSANTS.THEME_NAKED ? 'none' : 'block'};
+  width: 340px;
+  align-self: flex-end;
+  margin-right: 40px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+`;
+const TreeLabel = _styledComponents.default.h3`
+  position: absolute;
+  background: ${({
+  theme
+}) => theme.colors.warning};
+  padding: ${({
+  theme
+}) => `${theme.space.xs} ${theme.space.m}`};
+  box-shadow: ${({
+  theme
+}) => theme.shadow[100]};
+  top: ${({
+  theme
+}) => `-${theme.space.xl}`};
+  left: ${({
+  theme
+}) => theme.space.l};
 `;
 
 const App = () => {
@@ -32144,20 +32205,106 @@ const App = () => {
 
     fetchData();
   }, []);
-  return /*#__PURE__*/_react.default.createElement(MenuContainer, null, /*#__PURE__*/_react.default.createElement(Input, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(LogoImg, {
+    src: _logo.default,
+    alt: "Anonos Logo"
+  }), /*#__PURE__*/_react.default.createElement(MenuContainer, null, /*#__PURE__*/_react.default.createElement(TreeLabel, null, "Three"), /*#__PURE__*/_react.default.createElement(Input, {
     type: "text",
     value: term,
     onChange: e => setTerm(e.target.value),
-    "data-testid": "INPUT_FILTER"
+    "data-testid": "INPUT_FILTER",
+    placeholder: "Filter menu by..."
   }), isMenuLoading && /*#__PURE__*/_react.default.createElement("div", null, "loading"), /*#__PURE__*/_react.default.createElement(_Menu.default, {
     options: filtered.length !== 0 ? filtered : options,
     isEmpty: filtered.length === 0 && term !== ''
-  }));
+  })));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./contexts/menuContext":"src/contexts/menuContext.js","./components/Menu":"src/components/Menu/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./contexts/menuContext":"src/contexts/menuContext.js","./components/Menu":"src/components/Menu/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./assets/logo.svg":"src/assets/logo.svg","./constants/styling":"src/constants/styling.js"}],"src/components/ThemeSelector/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var THEME_CONSTANTS = _interopRequireWildcard(require("../../constants/styling"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Header = _styledComponents.default.header`
+  color: ${({
+  theme
+}) => theme.colors.primary};
+  width: 100%;
+  display: flex;
+  background-color: ${({
+  theme
+}) => theme.colors.highlight};
+  border-bottom: ${({
+  theme
+}) => theme.name === THEME_CONSTANTS.THEME_NAKED ? `${theme.border.s} ${theme.colors.primary}` : `${theme.border.all}`};
+
+  & > label {
+    padding: ${({
+  theme
+}) => theme.input.padding};
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: auto;
+  }
+`;
+const Select = _styledComponents.default.select`
+  padding: ${({
+  theme
+}) => theme.input.padding};
+  border-radius: ${({
+  theme
+}) => theme.radius.all};
+  border: ${({
+  theme
+}) => theme.border.all};
+  box-shadow: ${({
+  theme
+}) => theme.shadow[100]};
+  &:hover {
+    box-shadow: ${({
+  theme
+}) => theme.shadow[200]};
+  }
+`;
+
+const ThemeSelector = props => {
+  const {
+    setActiveTheme,
+    activeTheme
+  } = props;
+  return /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("label", null, "Select your theme \uD83C\uDFA8", /*#__PURE__*/_react.default.createElement(Select, {
+    onChange: e => setActiveTheme(e.target.value),
+    value: activeTheme,
+    id: "themeSelector"
+  }, /*#__PURE__*/_react.default.createElement("option", {
+    value: THEME_CONSTANTS.THEME_NAKED
+  }, "Naked"), /*#__PURE__*/_react.default.createElement("option", {
+    value: THEME_CONSTANTS.THEME_ANONOS
+  }, "Anonos"))));
+};
+
+var _default = ThemeSelector;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","../../constants/styling":"src/constants/styling.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32229,44 +32376,36 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/constants/styling.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.LOCAL_THEMES = void 0;
-const LOCAL_THEMES = 'LOCAL_THEMES';
-exports.LOCAL_THEMES = LOCAL_THEMES;
-},{}],"src/themes/schema.json":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/themes/schema.json":[function(require,module,exports) {
 module.exports = {
   "data": {
-    "light": {
+    "naked": {
       "id": "T_001",
-      "name": "Light",
+      "name": "naked",
       "colors": {
         "body": "#FFFFFF",
         "text": "#000000",
         "primary": "#000000",
         "secodary": "#FFFFFF",
         "light": "#FFFFFF",
-        "warning": "#000000",
+        "highlight": "#FFFFFF",
+        "warning": "#FFFFFF",
         "button": {
           "text": "#FFFFFF",
           "background": "#000000"
         },
         "link": {
-          "text": "red",
+          "text": "#000000",
           "opacity": 1
         }
       },
       "space": {
-        "margin": "0px",
-        "marginTop": "0px",
-        "marginRight": "0px",
-        "marginBottom": "0px",
-        "marginLeft": "0px",
-        "padding": "0px"
+        "xs": "5px",
+        "s": "10px",
+        "m": "15px",
+        "l": "20px",
+        "xl": "30px",
+        "xxl": "40px"
       },
       "font": "serif",
       "radius": {
@@ -32277,11 +32416,14 @@ module.exports = {
         "BottomLeftRadius": "0px"
       },
       "border": {
-        "all": "0px",
-        "topLeft": "0px",
-        "topRight": "0px",
-        "bottomRight": "0px",
-        "bottomLeft": "0px"
+        "all": "1px",
+        "topLeft": "1px",
+        "topRight": "1px",
+        "bottomRight": "1px",
+        "bottomLeft": "1px",
+        "s": "1px solid ",
+        "m": "3px solid ",
+        "l": "5px solid "
       },
       "input": {
         "padding": "5px"
@@ -32293,13 +32435,14 @@ module.exports = {
     },
     "anonos": {
       "id": "T_007",
-      "name": "Anonos Theme",
+      "name": "anonos",
       "colors": {
         "body": "#002e6d",
         "text": "#002e6d",
         "primary": "#0d47a1",
         "secodary": "#002e6d",
         "light": "#f3f6f8",
+        "highlight": "#ebf3ff",
         "warning": "#FDB913",
         "button": {
           "text": "#ffffff",
@@ -32312,12 +32455,13 @@ module.exports = {
         }
       },
       "space": {
-        "margin": "10px",
-        "marginTop": "1em",
-        "marginRight": "10px",
-        "marginBottom": "1em",
-        "marginLeft": "10px",
-        "padding": "20px"
+        "none": "0px",
+        "xs": "5px",
+        "s": "10px",
+        "m": "15px",
+        "l": "20px",
+        "xl": "30px",
+        "xxl": "40px"
       },
       "font": "sans-serif",
       "radius": {
@@ -32328,14 +32472,17 @@ module.exports = {
         "BottomLeftRadius": "0px"
       },
       "border": {
-        "all": "none",
-        "topLeft": "none",
-        "topRight": "none",
-        "bottomRight": "none",
-        "bottomLeft": "none"
+        "all": "0px",
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px",
+        "s": "1px solid ",
+        "m": "3px solid ",
+        "l": "5px solid "
       },
       "input": {
-        "padding": "5px"
+        "padding": "8px 10px"
       },
       "shadow": {
         "100": "0 4px 10px 0 rgb(0 0 0 / 15%)",
@@ -32365,32 +32512,77 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const useTheme = () => {
-  console.log('DEFAULT THEME', defaultTheme.data.light);
-  const themes = (0, _index.getThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES) || defaultTheme.data.anonos;
-  console.log('themes', themes);
+  const avialableThemes = defaultTheme.data;
+  const themes = (0, _index.getThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES) || avialableThemes[STYLE_CONSTATNTS.THEME_NAKED];
   const [theme, setTheme] = (0, _react.useState)(themes);
-  const [themeFromLocal, setThemeFromLocal] = (0, _react.useState)(false);
+  const [themeFromLocal, setThemeFromLocal] = (0, _react.useState)(STYLE_CONSTATNTS.THEME_NAKED);
 
-  const setMode = mode => {
-    (0, _index.setThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES, mode);
-    setTheme(mode);
+  const setThemeName = themeName => {
+    setThemeFromLocal(themeName);
+    (0, _index.setThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES, avialableThemes[themeName]);
+    setTheme(avialableThemes[themeName]);
+  };
+
+  const pickTheme = themeName => {
+    return avialableThemes[themeName];
   };
 
   (0, _react.useEffect)(() => {
-    const localTheme = (0, _index.getThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES);
-    console.log('USE EFFECT - ThemeProvider', localTheme);
-    localTheme ? setTheme(localTheme) : setTheme(themes);
-    setThemeFromLocal(true);
-  }, []);
+    var _getThemeLocal;
+
+    setThemeFromLocal((_getThemeLocal = (0, _index.getThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES)) === null || _getThemeLocal === void 0 ? void 0 : _getThemeLocal.name);
+  });
   return {
     theme,
     themeFromLocal,
-    setMode
+    setThemeName,
+    pickTheme
   };
 };
 
 exports.useTheme = useTheme;
-},{"react":"node_modules/react/index.js","../Utils/index":"src/Utils/index.js","../constants/styling":"src/constants/styling.js","../themes/schema.json":"src/themes/schema.json"}],"src/themes/GlobalStyles.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Utils/index":"src/Utils/index.js","../constants/styling":"src/constants/styling.js","../themes/schema.json":"src/themes/schema.json"}],"src/themes/ThemeProvider.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Utils = require("../Utils");
+
+var STYLE_CONSTATNTS = _interopRequireWildcard(require("../constants/styling"));
+
+var _useTheme = require("../hooks/useTheme");
+
+var _styledComponents = require("styled-components");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const MenuThemeProvider = props => {
+  const {
+    theme
+  } = (0, _useTheme.useTheme)();
+  console.log('🥑 🥑 🥑 🥑 props MenuThemeProvider', props);
+  console.log('🥑 🥑 🥑 🥑 props.children MenuThemeProvider', props.children);
+  const [activeTheme, setActiveTheme] = (0, _react.useState)(theme);
+  console.log('theme 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑', theme);
+  (0, _react.useEffect)(() => {
+    console.log('RENDEREING THEME PROVIDER 🤓');
+    setActiveTheme(theme);
+  }, [activeTheme]);
+  return /*#__PURE__*/_react.default.createElement(_styledComponents.ThemeProvider, {
+    theme: theme
+  }, props.children);
+};
+
+var _default = MenuThemeProvider;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../Utils":"src/Utils/index.js","../constants/styling":"src/constants/styling.js","../hooks/useTheme":"src/hooks/useTheme.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/themes/GlobalStyles.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32476,7 +32668,7 @@ const GlobalStyles = (0, _styledComponents.createGlobalStyle)`
 
 `;
 exports.GlobalStyles = GlobalStyles;
-},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"src/themes/ThemeProvider.js":[function(require,module,exports) {
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32486,45 +32678,11 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Utils = require("../Utils");
-
-var STYLE_CONSTATNTS = _interopRequireWildcard(require("../constants/styling"));
-
-var _useTheme = require("../hooks/useTheme");
-
-var _GlobalStyles = require("./GlobalStyles");
-
-var _styledComponents = require("styled-components");
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const MenuThemeProvider = props => {
-  const {
-    theme,
-    themeLoaded
-  } = (0, _useTheme.useTheme)();
-  const [slectedStyle, setSlectedStyle] = (0, _react.useState)(theme);
-  (0, _react.useEffect)(() => {
-    (0, _Utils.setThemeLocal)(STYLE_CONSTATNTS.LOCAL_THEMES, theme);
-    setSlectedStyle(theme);
-  }, [themeLoaded]);
-  return /*#__PURE__*/_react.default.createElement(_styledComponents.ThemeProvider, {
-    theme: slectedStyle
-  }, /*#__PURE__*/_react.default.createElement(_GlobalStyles.GlobalStyles, null), props.children);
-};
-
-var _default = MenuThemeProvider;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","../Utils":"src/Utils/index.js","../constants/styling":"src/constants/styling.js","../hooks/useTheme":"src/hooks/useTheme.js","./GlobalStyles":"src/themes/GlobalStyles.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.js":[function(require,module,exports) {
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _App = _interopRequireDefault(require("./src/App"));
+
+var _ThemeSelector = _interopRequireDefault(require("./src/components/ThemeSelector"));
 
 require("./normalize.css");
 
@@ -32532,22 +32690,56 @@ var _menuContext = require("./src/contexts/menuContext");
 
 var _ThemeProvider = _interopRequireDefault(require("./src/themes/ThemeProvider"));
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
+var _styledComponents = _interopRequireWildcard(require("styled-components"));
+
+var _GlobalStyles = require("./src/themes/GlobalStyles");
+
+var _useTheme = require("./src/hooks/useTheme");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 // index.js
 const Container = _styledComponents.default.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   font-family: ${({
   theme
 }) => theme.font};
 `;
 
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_menuContext.MenuProvider, null, /*#__PURE__*/_react.default.createElement(_ThemeProvider.default, null, /*#__PURE__*/_react.default.createElement(Container, null, /*#__PURE__*/_react.default.createElement(_App.default, null)))), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./src/App":"src/App.js","./normalize.css":"normalize.css","./src/contexts/menuContext":"src/contexts/menuContext.js","./src/themes/ThemeProvider":"src/themes/ThemeProvider.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+const AppWrapper = () => {
+  const {
+    theme,
+    setThemeName,
+    pickTheme,
+    themeFromLocal
+  } = (0, _useTheme.useTheme)();
+  const [activeTheme, setActiveTheme] = (0, _react.useState)(theme);
+
+  const setThemeHandler = themeName => {
+    setActiveTheme(pickTheme(themeName));
+    setThemeName(themeName);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_styledComponents.ThemeProvider, {
+    theme: activeTheme
+  }, /*#__PURE__*/_react.default.createElement(_menuContext.MenuProvider, null, /*#__PURE__*/_react.default.createElement(Container, null, /*#__PURE__*/_react.default.createElement(_GlobalStyles.GlobalStyles, null), /*#__PURE__*/_react.default.createElement(_ThemeSelector.default, {
+    setActiveTheme: setThemeHandler,
+    activeTheme: themeFromLocal
+  }), /*#__PURE__*/_react.default.createElement(_App.default, null))));
+};
+
+var _default = AppWrapper;
+exports.default = _default;
+
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(AppWrapper, null), document.getElementById('app'));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./src/App":"src/App.js","./src/components/ThemeSelector":"src/components/ThemeSelector/index.js","./normalize.css":"normalize.css","./src/contexts/menuContext":"src/contexts/menuContext.js","./src/themes/ThemeProvider":"src/themes/ThemeProvider.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./src/themes/GlobalStyles":"src/themes/GlobalStyles.js","./src/hooks/useTheme":"src/hooks/useTheme.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32575,7 +32767,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63239" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57056" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,31 +1,32 @@
 {
   "data": {
-    "light": {
+    "naked": {
       "id": "T_001",
-      "name": "Light",
+      "name": "naked",
       "colors": {
         "body": "#FFFFFF",
         "text": "#000000",
         "primary": "#000000",
         "secodary": "#FFFFFF",
         "light": "#FFFFFF",
-        "warning": "#000000",
+        "highlight": "#FFFFFF",
+        "warning": "#FFFFFF",
         "button": {
           "text": "#FFFFFF",
           "background": "#000000"
         },
         "link": {
-          "text": "red",
+          "text": "#000000",
           "opacity": 1
         }
       },
       "space": {
-        "margin": "0px",
-        "marginTop": "0px",
-        "marginRight": "0px",
-        "marginBottom": "0px",
-        "marginLeft": "0px",
-        "padding": "0px"
+        "xs": "5px",
+        "s": "10px",
+        "m": "15px",
+        "l": "20px",
+        "xl": "30px",
+        "xxl": "40px"
       },
       "font": "serif",
       "radius": {
@@ -36,11 +37,14 @@
         "BottomLeftRadius": "0px"
       },
       "border": {
-        "all": "0px",
-        "topLeft": "0px",
-        "topRight": "0px",
-        "bottomRight": "0px",
-        "bottomLeft": "0px"
+        "all": "1px",
+        "topLeft": "1px",
+        "topRight": "1px",
+        "bottomRight": "1px",
+        "bottomLeft": "1px",
+        "s": "1px solid ",
+        "m": "3px solid ",
+        "l": "5px solid "
       },
       "input": {
         "padding": "5px"
@@ -52,13 +56,14 @@
     },
     "anonos": {
       "id": "T_007",
-      "name": "Anonos Theme",
+      "name": "anonos",
       "colors": {
         "body": "#002e6d",
         "text": "#002e6d",
         "primary": "#0d47a1",
         "secodary": "#002e6d",
         "light": "#f3f6f8",
+        "highlight": "#ebf3ff",
         "warning": "#FDB913",
         "button": {
           "text": "#ffffff",
@@ -71,12 +76,13 @@
         }
       },
       "space": {
-        "margin": "10px",
-        "marginTop": "1em",
-        "marginRight": "10px",
-        "marginBottom": "1em",
-        "marginLeft": "10px",
-        "padding": "20px"
+        "none": "0px",
+        "xs": "5px",
+        "s": "10px",
+        "m": "15px",
+        "l": "20px",
+        "xl": "30px",
+        "xxl": "40px"
       },
       "font": "sans-serif",
       "radius": {
@@ -87,14 +93,17 @@
         "BottomLeftRadius": "0px"
       },
       "border": {
-        "all": "none",
-        "topLeft": "none",
-        "topRight": "none",
-        "bottomRight": "none",
-        "bottomLeft": "none"
+        "all": "0px",
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px",
+        "s": "1px solid ",
+        "m": "3px solid ",
+        "l": "5px solid "
       },
       "input": {
-        "padding": "5px"
+        "padding": "8px 10px"
       },
       "shadow": {
         "100": "0 4px 10px 0 rgb(0 0 0 / 15%)",

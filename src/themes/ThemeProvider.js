@@ -2,24 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { setThemeLocal } from '../Utils';
 import * as STYLE_CONSTATNTS from '../constants/styling';
 import { useTheme } from '../hooks/useTheme';
-import { GlobalStyles } from './GlobalStyles';
+
 import { ThemeProvider } from 'styled-components';
 
 const MenuThemeProvider = (props) => {
-  const { theme, themeLoaded } = useTheme();
-  const [slectedStyle, setSlectedStyle] = useState(theme);
+  const { theme } = useTheme();
+  console.log('🥑 🥑 🥑 🥑 props MenuThemeProvider', props);
+  console.log('🥑 🥑 🥑 🥑 props.children MenuThemeProvider', props.children);
+  const [activeTheme, setActiveTheme] = useState(theme);
 
+  console.log('theme 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑', theme);
   useEffect(() => {
-    setThemeLocal(STYLE_CONSTATNTS.LOCAL_THEMES, theme);
-    setSlectedStyle(theme);
-  }, [themeLoaded]);
+    console.log('RENDEREING THEME PROVIDER 🤓');
+    setActiveTheme(theme);
+  }, [activeTheme]);
 
-  return (
-    <ThemeProvider theme={slectedStyle}>
-      <GlobalStyles />
-      {props.children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
 export default MenuThemeProvider;

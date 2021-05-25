@@ -31,7 +31,7 @@ export const setThemeLocal = (key, value) => {
 export const getThemeLocal = (key) => {
   const value = window.localStorage.getItem(key);
 
-  // if (value) {
-  //   return JSON.parse(value);
-  // }
+  if (value) {
+    return JSON.parse(value);
+  }
 };
