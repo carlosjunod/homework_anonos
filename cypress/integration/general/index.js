@@ -42,4 +42,14 @@ describe('E2E Test', () => {
     cy.get('#app > :nth-child(1) > div').should('contain', 'No results');
     /* ==== End Cypress Studio ==== */
   });
+
+  it('Change Theme', () => {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('#themeSelector').select('anonos');
+    cy.get('body').wait(500).should('have.css', 'background-color', 'rgb(0, 46, 109)');
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('#themeSelector').select('naked');
+    cy.get('body').wait(500).should('have.css', 'background-color', 'rgb(255, 255, 255)');
+    /* ==== End Cypress Studio ==== */
+  });
 });
