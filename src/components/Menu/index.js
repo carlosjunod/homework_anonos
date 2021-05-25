@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import Option from '../Option';
-import styled from 'styled-components';
 import NoResults from '../../components/NoResults';
-
-const StyledMenu = styled.ul``;
+import PropTypes from 'prop-types';
+import uniqid from 'uniqid';
 
 const Menu = ({ options, level = 0, isEmpty = false }) => {
   if (isEmpty) return <NoResults />;
@@ -11,8 +10,9 @@ const Menu = ({ options, level = 0, isEmpty = false }) => {
   return (
     <ul data-testid={`LINK_MENU_${level}`}>
       {options.map((op, i) => {
+        let key = uniqid.time();
         return (
-          <li>
+          <li key={key}>
             <Option text={op.title} url={op.url} />
             {op?.children?.length > 0 && <Menu options={op.children} level={i + 1} />}
           </li>
@@ -20,6 +20,10 @@ const Menu = ({ options, level = 0, isEmpty = false }) => {
       })}
     </ul>
   );
+};
+
+Menu.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Menu;

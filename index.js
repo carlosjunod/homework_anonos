@@ -1,5 +1,5 @@
 // index.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import App from './src/App';
 import ThemeSelector from './src/components/ThemeSelector';
