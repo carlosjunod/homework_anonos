@@ -11,7 +11,8 @@
 
 </div>
 
-##Instructions:
+## Instructions
+
 Build a multi-dimensional link menu as a stand-alone component in React.js
 
 1. Data model for the menu provided below. Consider it coming from a HTTP source.
@@ -44,20 +45,6 @@ Clone this repo using `git@github.com:carlosjunod/homework_anonos.git`
 In order to make this application run, it's necessary to start two processes, 1) mock API, which will feed content to the multi-dimensional link menu, and 2) the React UI bundle by Parcer-js.
 
 To run this application, you must have Node.js installed locally.
-
-<style>
-
-    #table_info {
-        width: 100%
-    }
-
-    #table_info table td:first-Child {
-        width: 40%;
-        text-align: left;
-    }
-
-
-</style>
 
 <div id="table_info">
 
