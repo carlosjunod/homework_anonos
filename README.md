@@ -1,23 +1,9 @@
 # Anonos Homework.
 
-<style>
-#logo_img {
-    background-color: #002e6d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    flex-direction: column;
-}
-
-#logo_img img {
-    margin-top: 20px;
-}
-</style>
-
 [logo]: https://github.com/carlosjunod/homework_anonos/blob/feature/styling/src/assets/logo.svg 'Logo Title Text 2'
 
-<div id="logo_img">
+<div id="logo_img" style=" background-color:#002e6d; display: flex; justify-content: center; align-items: center;padding: 10px;flex-direction: column;";
+}>
 
 ![alt text](./src/assets/logo.svg?sanitize=true 'Logo Anonos')
 
